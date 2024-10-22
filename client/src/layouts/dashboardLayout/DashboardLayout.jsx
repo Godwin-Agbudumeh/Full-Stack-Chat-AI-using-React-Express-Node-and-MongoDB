@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import './dashboardLayout.css'
 import {useAuth} from '@clerk/clerk-react';
 
 export default function DashboardLayout() {
   const {userId, isLoaded} = useAuth();
 
-  const navigate = useNavigation();
+  const navigate = useNavigate();
 
   useEffect(()=>{
     if(isLoaded && !userId){
