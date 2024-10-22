@@ -6,7 +6,7 @@ export default function Homepage() {
   return (
     <div>
       Homepage
-      <Link to="/dashboard"></Link>
+      <Link to="/dashboard">dashboard</Link>
     </div>
   )
 }

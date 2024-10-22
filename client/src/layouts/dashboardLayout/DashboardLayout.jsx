@@ -10,7 +10,7 @@ export default function DashboardLayout() {
 
   useEffect(()=>{
     if(isLoaded && !userId){
-      navigate("/sign-in ")
+      navigate("/sign-in")
     }
   }, [isLoaded, userId, navigate]);
 
