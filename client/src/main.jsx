@@ -11,7 +11,7 @@ import Homepage from './pages/homepage/Homepage'
 import DashboardPage from './pages/dashboardPage/DashboardPage'
 import ChatPage from './pages/chatPage/ChatPage'
 import RootLayout from './layouts/rootLayout/RootLayout'
-import DashboardLayout from './layouts/rootLayout/dashboardLayout/DashboardLayout';
+import DashboardLayout from './layouts/dashboardLayout/DashboardLayout';
 
 const router = createBrowserRouter([
   {
