@@ -12,9 +12,9 @@ export default function DashboardLayout() {
     if(isLoaded && !userId){
       navigate("/sign-in ")
     }
-  }, [])
+  }, [isLoaded, userId, navigate]);
 
-
+  if(!isLoaded) return "Loading..."
   return (
     <div className='dashboardLayout'>
       <div className='menu'>MENU</div>
