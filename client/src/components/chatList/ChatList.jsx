@@ -27,7 +27,7 @@ export default function ChatList() {
       <div className="upgrade">
         <img src="/logo.png" alt="" />
         <div className="texts">
-            <span>Upgrade to Lama AI Pro</span>
+            <span>Upgrade to Godwin AI Pro</span>
             <span>Get unlimited access to all features</span>
         </div>
       </div>
