@@ -5,17 +5,14 @@ import './homepage.css';
 export default function Homepage() {
   return (
     <div className='homepage'>
-      {/* <img src="/orbital.png" alt="" className='orbital'/> */}
       <div className="left">
         <h1>GODWIN AI</h1>
-        <h2>Supercharge your creativity and productivity</h2>
+        <h2>Take your creativity to greater heights</h2>
         <h4>
-          Lorem, ipsum dolor sit amet consectetur 
-          adipisicing elit. Odit, inventore delectus 
-          tempore eveniet quas amet, suscipit doloribus
-          at sed quo voluptate accusamus.
+          Get instant results to your questions. You get this 
+          at a blazing speed.
         </h4>
-        <Link to="/dashboard">Get Started</Link>
+        <Link to="/dashboard">Start now</Link>
       </div>
       <div className="right">
         <div className="imgContainer">
