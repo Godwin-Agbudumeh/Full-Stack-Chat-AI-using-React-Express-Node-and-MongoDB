@@ -19,9 +19,9 @@ export default function RootLayout() {
               <span>GODWIN AI</span>
           </Link>
           <div className='user'>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+           <SignedIn>
+             <UserButton />
+           </SignedIn> 
           </div>
         </header>
         <main>
