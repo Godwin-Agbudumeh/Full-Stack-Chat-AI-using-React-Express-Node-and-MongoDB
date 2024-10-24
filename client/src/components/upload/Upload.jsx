@@ -1,7 +1,7 @@
 import React from 'react'
-import { IKContext, IKImage } from 'imagekitio-react';
+import { IKContext, IKUpload  } from 'imagekitio-react';
 
-const urlEndpoint = import.meta.env.VITR_IMAGE_KIT_ENDPOINT;
+const urlEndpoint = import.meta.env.VITE_IMAGE_KIT_ENDPOINT;
 const publicKey = import.meta.env.VITE_IMAGE_KIT_PUBLIC_KEY; 
 
 const authenticator =  async () => {
@@ -21,7 +21,25 @@ const authenticator =  async () => {
     }
 };
 
-export default function Upload() {
+export default function Upload({setImg}) {
+    const onError = err => {
+        console.log("Error", err);
+      }; 
+    
+    const onSuccess = res => {
+    console.log("Success", res); 
+    setImg(prev=>({...prev, isLoading: false, dbData: res}));
+    };
+    
+    const onUploadProgress = progress => {
+    console.log("Progress", progress);
+    };
+    
+    const onUploadStart = evt => {
+    console.log("Start", evt);
+    setImg(prev=>({...prev, isLoading:true}))
+    };
+
   return (
     <IKContext
         urlEndpoint={urlEndpoint}
@@ -32,7 +50,10 @@ export default function Upload() {
           fileName="test-upload.png"
           onError={onError}
           onSuccess={onSuccess}
-        />
+          useUniqueFileName={true}
+          onUploadProgress={onUploadProgress}
+          onUploadStart={onUploadStart}
+        /> 
     </IKContext>
   )
 }
