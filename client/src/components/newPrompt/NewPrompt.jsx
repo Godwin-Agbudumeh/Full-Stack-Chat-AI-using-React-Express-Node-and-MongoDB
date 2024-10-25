@@ -20,10 +20,10 @@ export default function NewPrompt() {
 
   useEffect(()=>{
     endRef.current.scrollIntoView({behavior: "smooth"});
-  },[]); 
+  },[question, answer, img.dbData]); 
 
   const add = async (text)=>{
-    setQuestion(text);
+    setQuestion(text); 
 
     const result = await model.generateContent(text);
     const response = await result.response;
