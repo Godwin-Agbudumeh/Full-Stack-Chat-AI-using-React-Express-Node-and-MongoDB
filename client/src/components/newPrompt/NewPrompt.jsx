@@ -2,7 +2,9 @@ import React, {useRef, useEffect, useState} from 'react'
 import { IKImage } from 'imagekitio-react';
 import Upload from '../upload/Upload';
 import model from '../../lib/gemini';
+import Markdown from "react-markdown";
 import './newPrompt.css'
+
 
 export default function NewPrompt() {
   const [question, setQuestion] = useState("");
@@ -51,7 +53,7 @@ export default function NewPrompt() {
           />
         }
         {question && <div className='message user'>{question}</div>}
-        {answer && <div className='message'>{answer}</div>}
+        {answer && <div className='message'><Markdown>{answer}</Markdown></div>}
         <div className="endChat" ref={endRef}></div>
         <form action="" className="newForm" onSubmit={handleSubmit}>
              <Upload setImg={setImg}/>
