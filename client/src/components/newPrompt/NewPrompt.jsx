@@ -17,6 +17,19 @@ export default function NewPrompt() {
     aiData:{},
   })
 
+  const chat = model.startChat({
+    history: [
+      {
+        role: "user",
+        parts: [{ text: "Hello" }],
+      },
+      {
+        role: "model",
+        parts: [{ text: "Great to meet you. What would you like to know?" }],
+      },
+    ],
+  });
+
   const endRef = useRef(null);
 
   useEffect(()=>{
@@ -26,11 +39,23 @@ export default function NewPrompt() {
   const add = async (text)=>{
     setQuestion(text); 
 
-    //Sening our question and image and getting the response from google ai
+    //Sending our question and image and getting the response from google ai
     //img.aiData is gotten from onUploadStart in Upload.jsx 
-    const result = await model.generateContent(Object.entries(img.aiData).length ? [img.aiData, text] : (text));
-    const response = await result.response;
-    setAnswer(response.text());  
+    const result = await chat.sendMessageStream(Object.entries(img.aiData).length ? [img.aiData, text] : (text));
+    //const response = await result.response;
+    let accumulatedText = "";
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      accumulatedText += chunkText;
+      setAnswer(accumulatedText);
+    }
+    //setAnswer(response.text()); 
+    setImg({
+      isLoading: false,
+      error:"",
+      dbData:{},
+      aiData:{},
+    });
   };
  
   const handleSubmit = async (e)=>{
@@ -46,8 +71,11 @@ export default function NewPrompt() {
  
   return (  
     <>
+        {question && <div className='message user'>{question}</div>}
+        {answer && <div className='message'><Markdown>{answer}</Markdown></div>}
         {img.isLoading && <div>Loading...</div>}
         {img.dbData?.filePath &&
+          //showing the image on page with IKImage from imagekit
           <IKImage
             // getting the file path ie clerk url to show the image on page 
             //img.dbData is gotten from onSuccess in Upload.jsx file
@@ -57,10 +85,9 @@ export default function NewPrompt() {
             transformation={[{width:300}]}
           />
         }
-        {question && <div className='message user'>{question}</div>}
-        {answer && <div className='message'><Markdown>{answer}</Markdown></div>}
         <div className="endChat" ref={endRef}></div>
         <form action="" className="newForm" onSubmit={handleSubmit}>
+              {/* using Upload.jsx to handle upload, the label to click is in upload.jsx*/}
              <Upload setImg={setImg}/>
              <input id="file" type="file" multiple={false} hidden/>
              <input type="text" name="text" placeholder='Ask anything...'/>

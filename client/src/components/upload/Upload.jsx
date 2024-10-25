@@ -41,9 +41,12 @@ export default function Upload({setImg}) {
     };
     
     //on start of upload from user pc before going to clerk via backend
+    //ie before going to onUploadProgress above, then to onSuccess above
     const onUploadStart = evt => {
       const file = evt.target.files[0];
        
+      //it is reading the file ie image details, so that we can send it to google gemini ai 
+      //and ask questions all in prompt.jsx 
       const reader = new FileReader()
       reader.onloadend = ()=>{
         setImg(prev=>({...prev, isLoading:true, aiData:{
@@ -73,6 +76,8 @@ export default function Upload({setImg}) {
           ref={ikUploadRef}
         />  
         {
+          //upon click of label, it calls the IKUpload, and upload process begins
+          //we are returning label here to avoid showing that add image button that this IKContext shows on page
             <label onClick={()=>ikUploadRef.current.click()}>
                 <img src="/attachment.png" alt="" />
             </label> 
