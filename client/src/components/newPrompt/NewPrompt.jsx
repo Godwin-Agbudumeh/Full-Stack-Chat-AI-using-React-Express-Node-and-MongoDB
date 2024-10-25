@@ -17,6 +17,7 @@ export default function NewPrompt() {
     aiData:{},
   })
 
+  //for google gemini ai
   const chat = model.startChat({
     history: [
       {
@@ -42,14 +43,14 @@ export default function NewPrompt() {
     //Sending our question and image and getting the response from google ai
     //img.aiData is gotten from onUploadStart in Upload.jsx 
     const result = await chat.sendMessageStream(Object.entries(img.aiData).length ? [img.aiData, text] : (text));
-    //const response = await result.response;
+    
     let accumulatedText = "";
     for await (const chunk of result.stream) {
       const chunkText = chunk.text();
       accumulatedText += chunkText;
       setAnswer(accumulatedText);
     }
-    //setAnswer(response.text()); 
+    
     setImg({
       isLoading: false,
       error:"",
