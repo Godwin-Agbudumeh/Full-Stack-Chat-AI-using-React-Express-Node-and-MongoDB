@@ -13,7 +13,8 @@ export default function NewPrompt() {
   const [img, setImg] = useState({
     isLoading: false,
     error:"",
-    dbData:{}
+    dbData:{},
+    aiData:{},
   })
 
   const endRef = useRef(null);
