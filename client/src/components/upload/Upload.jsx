@@ -6,6 +6,7 @@ const publicKey = import.meta.env.VITE_IMAGE_KIT_PUBLIC_KEY;
 
 const authenticator =  async () => {
     try {
+        //backend api to send image to, and from api to clerk
         const response = await fetch('http://localhost:3000/api/upload');
 
         if (!response.ok) {
@@ -28,6 +29,8 @@ export default function Upload({setImg}) {
         console.log("Error", err);
       }; 
     
+      //on successful upload to clerk via our backend ....3000/api/upload/
+      //res is the response gotten
     const onSuccess = res => {
       console.log("Success", res); 
       setImg(prev=>({...prev, isLoading: false, dbData: res}));
@@ -37,6 +40,7 @@ export default function Upload({setImg}) {
       console.log("Progress", progress);
     };
     
+    //on start of upload from user pc before going to clerk via backend
     const onUploadStart = evt => {
       const file = evt.target.files[0];
        

@@ -26,7 +26,9 @@ export default function NewPrompt() {
   const add = async (text)=>{
     setQuestion(text); 
 
-    const result = await model.generateContent(text);
+    //Sening our question and image and getting the response from google ai
+    //img.aiData is gotten from onUploadStart in Upload.jsx 
+    const result = await model.generateContent(Object.entries(img.aiData).length ? [img.aiData, text] : (text));
     const response = await result.response;
     setAnswer(response.text());  
   };
@@ -46,7 +48,9 @@ export default function NewPrompt() {
     <>
         {img.isLoading && <div>Loading...</div>}
         {img.dbData?.filePath &&
-          <IKImage 
+          <IKImage
+            // getting the file path ie clerk url to show the image on page 
+            //img.dbData is gotten from onSuccess in Upload.jsx file
             urlEndpoint={import.meta.env.VITE_IMAGE_KIT_ENDPOINT}
             path={img.dbData?.filePath}
             width="300"
