@@ -2,6 +2,24 @@ import React from 'react'
 import './dashboardPage.css';
 
 export default function DashboardPage() {
+
+  const handleSubmit = async(e)=>{
+    e.preventDefault()
+
+     //to reach the text name in input element
+    const text = e.target.text.value
+
+    if(!text) return;
+
+    await fetch("http://localhost:3000/api/chats", {
+      method: "POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({text})
+    })
+  }
+
   return (
     <div className='dashboardPage'>
       <div className="texts">
@@ -24,9 +42,9 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-      <div className="formContainer">
+      <div className="formContainer" onSubmit={handleSubmit}>
         <form>
-          <input type="text" placeholder='Ask me anything...'/>
+          <input type="text" name="text" placeholder='Ask me anything...'/>
           <button>
             <img src="/arrow.png" alt="" />
           </button>
