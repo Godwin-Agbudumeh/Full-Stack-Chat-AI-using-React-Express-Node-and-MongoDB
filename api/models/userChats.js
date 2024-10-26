@@ -5,7 +5,7 @@ const userChatsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    history: [
+    chats: [
         {
             _id:{
                 type:String,
