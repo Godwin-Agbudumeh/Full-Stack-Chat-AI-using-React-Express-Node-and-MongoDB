@@ -4,12 +4,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import Chat from './models/chat.js';
 import UserChats from './models/userChats.js';
+import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
     origin:"*",
+    // to use credentials sent from client on fetch
+    credentials: true,
 })) 
 
 app.use(express.json())
@@ -36,7 +39,13 @@ app.get("/api/upload", (req, res)=>{
     res.send(result);
 })
 
-app.post("/api/chats", async (req, res)=>{
+app.post("/api/chats",
+    //clerk middleware to allow only signed-in user from client access our api, 
+    ClerkExpressRequireAuth({
+        // Add options here
+        // See the Middleware options section for more details
+      }), 
+    async (req, res)=>{
     const {userId, text} = req.body  
     
     try{
@@ -82,6 +91,17 @@ app.post("/api/chats", async (req, res)=>{
         res.status(500).send("error creating chat");
     }
 });
+
+app.get("/api/test", ClerkExpressRequireAuth(), (req, res)=>{
+    console.log('success console')
+    res.send("success boy")
+})
+
+//to handle errors for clerk authentication middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(401).send('Unauthenticated!')
+  }) 
 
 app.listen(port, ()=>{
     connect()

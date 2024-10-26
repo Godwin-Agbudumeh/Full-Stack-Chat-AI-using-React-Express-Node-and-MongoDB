@@ -3,6 +3,11 @@ import {Link} from 'react-router-dom'
 import './homepage.css';
 
 export default function Homepage() {
+  const test = async()=>{
+    await fetch("http://localhost:3000/api/test", {
+      credentials:"include",
+    })
+  }
   return (
     <div className='homepage'>
       <div className="left">
@@ -13,6 +18,7 @@ export default function Homepage() {
           at a blazing speed.
         </h4>
         <Link to="/dashboard">Start now</Link>
+        <button onClick={test}>TEST BACKEND AUTH</button>
       </div>
       <div className="right">
         <div className="imgContainer">
