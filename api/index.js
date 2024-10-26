@@ -4,13 +4,14 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import Chat from './models/chat.js';
 import UserChats from './models/userChats.js';
-import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
+//import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
+//import {requireAuth} from '@clerk/express';
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-    origin:"*",
+    origin: process.env.CLIENT_URL,
     // to use credentials sent from client on fetch
     credentials: true,
 })) 
@@ -33,23 +34,20 @@ const imagekit = new ImageKit({
     privateKey: process.env.IMAGE_KIT_PRIVATE_KEY
   });
   
-//recieves image from client, send to imagekit, and send response back to client
+//to authenticate imagekit in client via backend, rules according to the docs
+//note: the upload to imagekit server takes place in client
+//but it must be authenticated first by this backend
 app.get("/api/upload", (req, res)=>{
     const result = imagekit.getAuthenticationParameters();
     res.send(result);
 })
 
-app.post("/api/chats",
-    //clerk middleware to allow only signed-in user from client access our api, 
-    ClerkExpressRequireAuth({
-        // Add options here
-        // See the Middleware options section for more details
-      }), 
-    async (req, res)=>{
-    const {userId, text} = req.body  
+app.post("/api/chats", async (req, res)=>{
+    //const userId = req.auth.userId
+    const {userId, text} = req.body ;
     
     try{
-        //creating a new chat
+        //creating a new chat  
         const newChat = new Chat({
             userId: userId,
             history: [{role:"user", parts:[{text}]}]
@@ -92,16 +90,18 @@ app.post("/api/chats",
     }
 });
 
-app.get("/api/test", ClerkExpressRequireAuth(), (req, res)=>{
-    console.log('success console')
-    res.send("success boy")
-})
+// app.get("/api/test", requireAuth(),/*  ClerkExpressRequireAuth(),*/(req, res)=>{
+//     // const userId = req.auth.userId;
+//     // console.log(userId)
+//     console.log('success console')
+//     res.status(200).send("success boy")
+// })
 
 //to handle errors for clerk authentication middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack)
-    res.status(401).send('Unauthenticated!')
-  }) 
+// app.use((err, req, res, next) => {
+//     console.error(err.stack)
+//     res.status(401).send('Unauthenticated!')
+//   }) 
 
 app.listen(port, ()=>{
     connect()

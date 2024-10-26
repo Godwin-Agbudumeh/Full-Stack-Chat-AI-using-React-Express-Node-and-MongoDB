@@ -3,6 +3,7 @@ import './dashboardPage.css';
 import {useAuth} from "@clerk/clerk-react";
 
 export default function DashboardPage() {
+
 const { userId } = useAuth();
 
   const handleSubmit = async(e)=>{
@@ -19,7 +20,7 @@ const { userId } = useAuth();
       headers:{
         "Content-Type":"application/json"
       },
-      body:JSON.stringify({ text})
+      body:JSON.stringify({userId, text})
     })
   }
 
