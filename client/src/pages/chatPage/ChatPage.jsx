@@ -15,7 +15,7 @@ export default function ChatPage() {
   const chatId = path.split("/").pop()
 
   const { isPending, error, data } = useQuery({
-    //query key for re-rendering anytime chatId changes
+    //query key has chatId for re-rendering anytime chatId changes
     queryKey: ['chat', chatId],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/api/chats/${chatId}`, {
@@ -60,7 +60,7 @@ export default function ChatPage() {
               </>
           )})}
              
-          <NewPrompt />
+          <NewPrompt data={data}/>
         </div>
       </div>
     </div> 

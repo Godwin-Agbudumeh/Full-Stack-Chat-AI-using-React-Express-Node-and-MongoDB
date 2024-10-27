@@ -4,9 +4,11 @@ import Upload from '../upload/Upload';
 import model from '../../lib/gemini';
 import Markdown from "react-markdown";
 import './newPrompt.css'
+import {useAuth} from "@clerk/clerk-react";
+import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 
-export default function NewPrompt() {
+export default function NewPrompt({data}) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -37,9 +39,51 @@ export default function NewPrompt() {
     endRef.current.scrollIntoView({behavior: "smooth"});
   },[question, answer, img.dbData]); 
 
+const { userId } = useAuth();
+
+const queryClient = useQueryClient();
+
+const mutation = useMutation({
+  mutationFn: ()=>{
+    return fetch(`${import.meta.env.VITE_API_URL}/api/chats${data_id}`, {
+      method: "PUT",
+      credentials: "include", 
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        //backend api, not detecting credentials,
+        //so i manually send userId, to fix
+        userId,
+        question: question.length ? question : undefined,
+        answer,
+        img: img.dbData?.filePath || undefined,
+      })
+    }).then(res=>res.json())
+  },
+  onSuccess: ()=>{
+    //Invalidate and refresh ie it forgets old fetch and refetches, just like a useState hook
+    //'chat' nad data._id key from ChatPage.jsx used here to invalidate and fetch again so it reflects new data just added
+    queryClient.invalidateQueries( {queryKey: ['chat', data._id]}).then(()=>{
+      setQuestion("");
+      setAnswer("");
+      setImg({
+        isLoading: false,
+        error:"",
+        dbData:{},
+        aiData:{},
+      })
+    });
+  },
+  onError: (err)=>{
+    console.log(err);
+  }
+})
+
   const add = async (text)=>{
     setQuestion(text); 
 
+    try{
     //Sending our question and image and getting the response from google ai
     //img.aiData is gotten from onUploadStart in Upload.jsx 
     const result = await chat.sendMessageStream(Object.entries(img.aiData).length ? [img.aiData, text] : (text));
@@ -49,14 +93,18 @@ export default function NewPrompt() {
       const chunkText = chunk.text();
       accumulatedText += chunkText;
       setAnswer(accumulatedText);
+    }   
+    // setImg({
+    //   isLoading: false,
+    //   error:"",
+    //   dbData:{},
+    //   aiData:{},
+    // });
+
+    mutation.mutate()
+    }catch(err){
+      console.log(err)
     }
-    
-    setImg({
-      isLoading: false,
-      error:"",
-      dbData:{},
-      aiData:{},
-    });
   };
  
   const handleSubmit = async (e)=>{

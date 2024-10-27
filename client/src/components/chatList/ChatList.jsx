@@ -8,7 +8,7 @@ export default function ChatList() {
   const { userId } = useAuth();
 
   const { isPending, error, data } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ['userChats'],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/api/userchats`, {
         //This is actually a get request, 
