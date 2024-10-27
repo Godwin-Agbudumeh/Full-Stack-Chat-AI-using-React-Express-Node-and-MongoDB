@@ -1,19 +1,25 @@
 import React from 'react'; 
 import {Link} from 'react-router-dom'
 import './homepage.css';
+//import { useAuth } from '@clerk/clerk-react'
 
 export default function Homepage() {
   
-  // const test = async()=>{
-  //   const res = await fetch("http://localhost:3000/api/test", {
-  //     method: "GET",
-  //     credentials: "include", 
-  //     headers:{
-  //       "Content-Type":"application/json"
-  //     },
-  //   })
-  //   console.log(res)
-  // }
+//   const { getToken } = useAuth()
+//   const test = async()=>{
+    
+//     const token = await getToken()
+//     const res = await fetch("http://localhost:3000/api/test", {
+//       method: "GET",
+//       //credentials: "include", 
+//       headers:{
+//         "Content-Type":"application/json",
+//         Authorization: `Bearer ${token}`,
+//         mode: 'cors',
+//       },
+//     })
+//     console.log(res)
+//  }
   return (
     <div className='homepage'>
       <div className="left">
@@ -24,6 +30,7 @@ export default function Homepage() {
           at a blazing speed.
         </h4>
         <Link to="/dashboard">Start now</Link>
+        {/* <button onClick={test}>click test</button> */}
       </div>
       <div className="right">
         <div className="imgContainer">

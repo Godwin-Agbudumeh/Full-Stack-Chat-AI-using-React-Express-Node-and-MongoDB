@@ -5,18 +5,29 @@ import mongoose from 'mongoose';
 import Chat from './models/chat.js';
 import UserChats from './models/userChats.js';
 //import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
-//import {requireAuth} from '@clerk/express';
+//import { ClerkExpressWithAuth } from '@clerk/clerk-sdk-node'
+// import { clerkMiddleware } from '@clerk/express'
+// import {requireAuth} from '@clerk/express';
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
-    origin: process.env.CLIENT_URL,
+    origin: true,
     // to use credentials sent from client on fetch
     credentials: true,
 })) 
 
 app.use(express.json())
+
+//app.use(clerkMiddleware());
+
+// const legacyRequireAuth = (req, res, next) => {
+//     if (!req.auth) {
+//       return next(new Error('Unauthenticated'))
+//     }
+//     next()
+//   }
 
 const connect = async ()=>{
     try{
@@ -42,7 +53,7 @@ app.get("/api/upload", (req, res)=>{
     res.send(result);
 })
 
-app.post("/api/chats", async (req, res)=>{
+app.post("/api/chats", /*ClerkExpressRequireAuth()*/ async (req, res)=>{
     //const userId = req.auth.userId
     const {userId, text} = req.body ;
     
@@ -90,9 +101,46 @@ app.post("/api/chats", async (req, res)=>{
     }
 });
 
-// app.get("/api/test", requireAuth(),/*  ClerkExpressRequireAuth(),*/(req, res)=>{
-//     // const userId = req.auth.userId;
-//     // console.log(userId)
+
+//This is actually a get request, 
+//but our backend api, not detecting credentials,
+//so i used post to get userId from client, to fix
+app.post("/api/userchats", /*ClerkExpressRequireAuth(),*/ async (req, res)=>{
+    //const userId = req.auth.userId;
+    const {userId} = req.body;
+
+    try{
+        const userChats = await UserChats.find({userId:userId});
+    
+        res.status(200).send(userChats[0].chats);
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Error fetching userchats")
+    }
+})
+
+//This is actually a get request, 
+//but our backend api, not detecting credentials,
+//so i used post to get userId from client, to fix
+app.post("/api/chats/:id", /*ClerkExpressRequireAuth(),*/ async (req, res)=>{
+    //const userId = req.auth.userId;
+    const {userId} = req.body;
+
+    try{
+        const chat = await Chat.findOne({_id:req.params.id, userId:userId});
+    
+        res.status(200).send(chat);
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Error fetching chat")
+    }
+})
+
+// app.get("/api/test", /*legacyRequireAuth, ClerkExpressWithAuth(), requireAuth({ signInUrl: '/sign-in' }), */ClerkExpressRequireAuth(),(req, res)=>{
+//     const userId = req.auth.userId;
+//     //const userId = req.auth
+//     console.log(userId)
+   
 //     console.log('success console')
 //     res.status(200).send("success boy")
 // })
