@@ -155,7 +155,7 @@ app.put('/api/chats/:id', /*ClerkExpressRequireAuth(),*/ async(req, res)=>{
     const {userId, question, answer, img} = req.body;
 
     //we are trying to get the answer from the ai
-    //the question from client will be undefined
+    //the question from client might be undefined or contains only image
     //we will just push the anwser into existing array of a particular chat id inside history
     const newItems = [
         ...(question 

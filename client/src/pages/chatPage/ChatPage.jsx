@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import './chatPage.css';
 import NewPrompt from '../../components/newPrompt/NewPrompt';
 import { useLocation } from "react-router-dom";

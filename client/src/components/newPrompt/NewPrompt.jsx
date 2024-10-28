@@ -37,7 +37,7 @@ export default function NewPrompt({data}) {
 
   useEffect(()=>{
     endRef.current.scrollIntoView({behavior: "smooth"});
-  },[question, answer, img.dbData]); 
+  },[data, question, answer, img.dbData]); 
 
 const { userId } = useAuth();
 
