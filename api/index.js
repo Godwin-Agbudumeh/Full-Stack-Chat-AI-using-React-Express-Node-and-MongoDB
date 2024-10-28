@@ -58,7 +58,9 @@ app.post("/api/chats", /*ClerkExpressRequireAuth()*/ async (req, res)=>{
     const {userId, text} = req.body ;
     
     try{
-        //creating a new chat  
+        //we are creating a new chat from the dashboard page ie DashboardPage.jsx
+        //the chat is saved in the chats collection of our database, it might be the user's first time or not
+        //the chat is just saved in chats collection, and it will have a unique id, which we will call chat id.
         const newChat = new Chat({
             userId: userId,
             history: [{role:"user", parts:[{text}]}]
@@ -66,10 +68,11 @@ app.post("/api/chats", /*ClerkExpressRequireAuth()*/ async (req, res)=>{
 
         const savedChat = await newChat.save();
 
-        //check if userchats exists
+        //we check if userchats exists, ie if the user has created a chat before and has a userId in our database
+        //we want to know if it is user's first time, ie if the user has a profile in our userChats collection in our database
         const userChats = await UserChats.find({userId: userId});
 
-        //if no userchats, create a new one and add the chat in the chats array
+        //if no user in our userchats collection, we create a new one
         if(!userChats.length){
             const newUserChats = new UserChats({
                 userId: userId,
@@ -83,7 +86,8 @@ app.post("/api/chats", /*ClerkExpressRequireAuth()*/ async (req, res)=>{
 
             await  newUserChats.save();
         }else{
-            //if userchats already exists, push the chat to the existing array
+            //if userchats already exists, we push the chatid and title created from the new chat 
+            //to the existing array of our userchats collection
             await UserChats.updateOne({userId:userId},{
                 $push:{
                     chats:{
@@ -93,8 +97,11 @@ app.post("/api/chats", /*ClerkExpressRequireAuth()*/ async (req, res)=>{
                 }
             } );
 
-            res.status(201).send(newChat._id);
-        }     
+            //res.status(201).send(newChat._id);
+        }
+        //here we now send the chat id our newly created chat
+        //it is used by the dashboardPage ie dashboardPage.jsx to redirect to /dashboard/chats/:id
+        res.status(201).send(newChat._id);     
     }catch(err){
         console.log(err);
         res.status(500).send("error creating chat");
@@ -112,6 +119,8 @@ app.post("/api/userchats", /*ClerkExpressRequireAuth(),*/ async (req, res)=>{
     try{
         const userChats = await UserChats.find({userId:userId});
     
+        //we are sending the userId, _ids and titles of all chats of a particular user
+        //it is used by the chatList.jsx to update lists
         res.status(200).send(userChats[0].chats);
     }catch(err){
         console.log(err);
@@ -127,8 +136,13 @@ app.post("/api/chats/:id", /*ClerkExpressRequireAuth(),*/ async (req, res)=>{
     const {userId} = req.body;
 
     try{
+        //we are finding chat that matches the criteria below
         const chat = await Chat.findOne({_id:req.params.id, userId:userId});
     
+        //we are sending the chat details of a single chat id, it contains roles, the texts
+        //it is needed by our chatPage.jsx page to show chats and question and answer just saved
+        //the question and answer was saved by our prompt.jsx inside a single chat id by app.put(/api/chats/:id)
+        //it was designed like that
         res.status(200).send(chat);
     }catch(err){
         console.log(err);
@@ -140,6 +154,9 @@ app.put('/api/chats/:id', /*ClerkExpressRequireAuth(),*/ async(req, res)=>{
     //const userId = req.auth.userId;
     const {userId, question, answer, img} = req.body;
 
+    //we are trying to get the answer from the ai
+    //the question from client will be undefined
+    //we will just push the anwser into existing array of a particular chat id inside history
     const newItems = [
         ...(question 
             ? [{role:"user", parts:[{text:question}], ...(img && { img })}]

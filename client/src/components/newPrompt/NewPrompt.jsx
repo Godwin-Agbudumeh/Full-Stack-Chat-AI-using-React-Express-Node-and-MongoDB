@@ -45,7 +45,7 @@ const queryClient = useQueryClient();
 
 const mutation = useMutation({
   mutationFn: ()=>{
-    return fetch(`${import.meta.env.VITE_API_URL}/api/chats${data_id}`, {
+    return fetch(`${import.meta.env.VITE_API_URL}/api/chats/${data._id}`, {
       method: "PUT",
       credentials: "include", 
       headers:{
@@ -66,7 +66,7 @@ const mutation = useMutation({
     //'chat' nad data._id key from ChatPage.jsx used here to invalidate and fetch again so it reflects new data just added
     queryClient.invalidateQueries( {queryKey: ['chat', data._id]}).then(()=>{
       setQuestion("");
-      setAnswer("");
+      setAnswer(""); 
       setImg({
         isLoading: false,
         error:"",
