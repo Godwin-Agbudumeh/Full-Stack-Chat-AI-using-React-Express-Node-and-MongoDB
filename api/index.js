@@ -196,5 +196,5 @@ app.put('/api/chats/:id', /*ClerkExpressRequireAuth(),*/ async(req, res)=>{
 
 app.listen(port, ()=>{
     connect()
-    console.log(`server is running on port ${port}`);
+    console.log(`our server is running on port ${port}`);
 })
