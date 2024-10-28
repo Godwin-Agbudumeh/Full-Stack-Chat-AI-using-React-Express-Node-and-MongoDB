@@ -21,6 +21,9 @@ export default function NewPrompt({data}) {
 
   //for google gemini ai
   const chat = model.startChat({
+    //we are sending previous chat from database to google ai
+    //so as to generate interactive responses
+    //to implement
     history: [
       {
         role: "user",
