@@ -61,7 +61,7 @@ export default function ChatPage() {
               </>
           )})}
              
-          <NewPrompt data={data}/>
+          {data && <NewPrompt data={data}/>}
         </div>
       </div>
     </div> 

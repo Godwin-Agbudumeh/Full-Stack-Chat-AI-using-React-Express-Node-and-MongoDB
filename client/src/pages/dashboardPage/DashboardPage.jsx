@@ -32,7 +32,7 @@ const mutation = useMutation({
   }
 })
 
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async(e)=>{ 
     e.preventDefault()
 
      //to reach the text name in input element
@@ -40,6 +40,7 @@ const mutation = useMutation({
 
     if(!text) return;
 
+    //calls the useMutation hook to start operation
     mutation.mutate(text);
 
     // await fetch("http://localhost:3000/api/chats", {
