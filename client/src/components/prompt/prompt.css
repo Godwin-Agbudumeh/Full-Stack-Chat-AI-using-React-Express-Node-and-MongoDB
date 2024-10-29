@@ -1,0 +1,64 @@
+ .endChat{
+    padding-bottom: 100px;
+ }
+ 
+ .newForm{
+        /* margin-top: auto;
+        width: 90%; */
+        position: absolute;
+        margin-bottom: 26.5px;
+        bottom: 0;
+        width: 80%;
+        background-color: rgb(70, 69, 69);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        gap: 1px;
+        padding: 0px 20px;
+        align-self: center;
+
+        input{
+            flex: 1;
+            padding: 20px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #ececec;
+        }
+        button{
+            margin-right: 40px;
+        }
+
+        button, label{
+            border-radius: 50%;
+            background-color: #217bfe;
+            border-radius: 50%;
+            border: none;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+
+            &:hover{
+                background-color: white;
+                color: #217bfe;
+            }
+
+            .newPropmtArrow{
+                font-size: 20px;
+            }
+        }
+} 
+
+/* media queries */
+@media screen and (min-width:900px){
+    .newForm{
+        width: 50%;
+        margin-bottom: 0px;
+
+        button{
+            margin-right: 25px;
+        }
+    }
+}

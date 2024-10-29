@@ -1,13 +1,13 @@
 import React, {useState} from 'react'
-import './chatPage.css';
-import NewPrompt from '../../components/newPrompt/NewPrompt';
+import './mainChatPage.css';
+import Prompt from '../../components/prompt/Prompt';
 import { useLocation } from "react-router-dom";
 import {useAuth} from "@clerk/clerk-react";
 import Markdown from "react-markdown";
 import {useQuery} from '@tanstack/react-query';
 import { IKImage } from 'imagekitio-react';
 
-export default function ChatPage() {
+export default function MainChatPage() {
   const { userId } = useAuth();
 
   const path =  useLocation().pathname;
@@ -35,7 +35,7 @@ export default function ChatPage() {
   });
 
   return (
-    <div className="chatPage">
+    <div className="mainChatPage">
       <div className="wrapper">
         <div className="chat">
           {isPending 
@@ -48,9 +48,9 @@ export default function ChatPage() {
                   <IKImage 
                     urlEndpoint={import.meta.env.VITE_IMAGE_KIT_ENDPOINT}
                     path={message.img}
-                    height="300"
-                    width="400"
-                    transformation={[{height:300, width:400}]}
+                    height="100"
+                    width="100"
+                    transformation={[{height:100, width:100}]}
                     loading="lazy"
                     lqip={{active:true, quality:20}}
                   />
@@ -61,7 +61,7 @@ export default function ChatPage() {
               </>
           )})}
              
-          {data && <NewPrompt data={data}/>}
+          {data && <Prompt data={data}/>}
         </div>
       </div>
     </div> 

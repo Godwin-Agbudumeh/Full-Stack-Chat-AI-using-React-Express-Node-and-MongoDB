@@ -4,10 +4,12 @@ import { IKContext, IKUpload  } from 'imagekitio-react';
 const urlEndpoint = import.meta.env.VITE_IMAGE_KIT_ENDPOINT;
 const publicKey = import.meta.env.VITE_IMAGE_KIT_PUBLIC_KEY; 
 
+//to authenticate owner for imagekit, it must use backend api
+//actual image upload takes place via react client
 const authenticator =  async () => {
     try {
-        //backend api to send image to, and from api to clerk
-        const response = await fetch('http://localhost:3000/api/upload');
+        //backend api to authenticate owner for imagekit
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/imageupload`);
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -22,7 +24,7 @@ const authenticator =  async () => {
     }
 };
 
-export default function Upload({setImg}) {
+export default function ImageUpload({setImg}) {
 
     const ikUploadRef = useRef(null);
     const onError = err => {
@@ -65,6 +67,7 @@ export default function Upload({setImg}) {
         publicKey={publicKey}
         authenticator={authenticator}
      >
+        {/*IKUpload resolves into <input type="file"/> according to imagekit docs*/}
         <IKUpload
           fileName="test-upload.png"
           onError={onError}
@@ -77,9 +80,9 @@ export default function Upload({setImg}) {
         />  
         {
           //upon click of label, it calls the IKUpload, and upload process begins
-          //we are returning label here to avoid showing that add image button that this IKContext shows on page
+          //we are using label here to avoid showing that add image button that this IKUpload shows on page
             <label onClick={()=>ikUploadRef.current.click()}>
-                <img src="/attachment.png" alt="" />
+                <i class="fa-regular fa-file-image"></i>
             </label> 
         }
     </IKContext>

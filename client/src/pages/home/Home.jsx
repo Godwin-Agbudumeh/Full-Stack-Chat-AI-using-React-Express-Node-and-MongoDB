@@ -1,9 +1,9 @@
 import React from 'react'; 
 import {Link} from 'react-router-dom'
-import './homepage.css';
+import './home.css';
 //import { useAuth } from '@clerk/clerk-react'
 
-export default function Homepage() {
+export default function Home() {
   
 //   const { getToken } = useAuth()
 //   const test = async()=>{
@@ -21,7 +21,7 @@ export default function Homepage() {
 //     console.log(res)
 //  }
   return (
-    <div className='homepage'>
+    <div className='home'>
       <div className="left">
         <h1>GODWIN AI</h1>
         <h2>Take your creativity to greater heights</h2>
@@ -42,9 +42,9 @@ export default function Homepage() {
       </div>
       <div className="terms">
         <img src="/logo.png" alt="" />
-        <div className="links">
-          <Link to="/">Terms of Service</Link>
-          <Link to="/">Privacy Policy</Link>
+        <div className="copyright">
+          <span>Copyright 2024 Godwin AI</span>
+          <span>All rights reserved</span>
         </div>
       </div>
     </div>

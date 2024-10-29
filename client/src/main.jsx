@@ -7,13 +7,13 @@ import {
   Route,
   Link,
 } from "react-router-dom";
-import Homepage from './pages/homepage/Homepage'
-import DashboardPage from './pages/dashboardPage/DashboardPage'
-import ChatPage from './pages/chatPage/ChatPage'
+import Home from './pages/home/Home'
+import Dashboard from './pages/dashboard/Dashboard'
+import MainChatPage from './pages/mainChatPage/MainChatPage'
 import RootLayout from './layouts/rootLayout/RootLayout'
 import DashboardLayout from './layouts/dashboardLayout/DashboardLayout';
-import SignInPage from './pages/signInPage/SignInPage'
-import SignUpPage from './pages/signUpPage/SignUpPage'
+import Login from './pages/login/Login'
+import Register from './pages/register/Register'
 
 const router = createBrowserRouter([
   {
@@ -21,26 +21,26 @@ const router = createBrowserRouter([
     children: [
      {
        path: "/",
-       element: <Homepage />,
+       element: <Home />,
      },
      {
       path: "/sign-in/*",
-      element: <SignInPage />,
+      element: <Login />,
      },
      {
       path: "/sign-up/*",
-      element: <SignUpPage />,
+      element: <Register />,
      },
      {
       element: <DashboardLayout />,
       children: [
         {
           path: "/dashboard",
-          element: <DashboardPage />,
+          element: <Dashboard />,
         },
         {
           path: "/dashboard/chats/:id",
-          element: <ChatPage />,
+          element: <MainChatPage />,
         },
       ]
     },

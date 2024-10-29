@@ -1,10 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import './chatList.css';
+import './chatTitle.css';
 import {useAuth} from "@clerk/clerk-react";
 import {useQuery} from '@tanstack/react-query';
  
-export default function ChatList() {
+export default function ChatTitle() {
   const { userId } = useAuth();
 
   const { isPending, error, data } = useQuery({
@@ -26,11 +26,9 @@ export default function ChatList() {
   });
 
   return (
-    <div className='chatList'>
+    <div className='chatTitle'>
       <span className='title'>DASHBOARD</span>
       <Link to="/dashboard">Create a new Chat</Link>
-      <Link to="/">Explore Godwin AI</Link>
-      <Link to="/">Contact</Link>
       <hr/>
       <span className='title'>RECENT CHATS</span>
       <div className="list">
@@ -46,8 +44,8 @@ export default function ChatList() {
       <div className="upgrade">
         <img src="/logo.png" alt="" />
         <div className="texts">
-            <span>Upgrade to Godwin AI Pro</span>
-            <span>Get unlimited access to all features</span>
+            <span>Copyright Godwin AI</span>
+            <span>All rights reserved</span>
         </div>
       </div>
     </div>

@@ -1,10 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import './dashboardLayout.css'
 import {useAuth} from '@clerk/clerk-react';
-import ChatList from '../../components/chatList/ChatList';
+import ChatTitle from '../../components/chatTitle/ChatTitle';
 
 export default function DashboardLayout() {
+  const [showMenu, setShowMenu] = useState(false);
+
+  const handleMenu = ()=>{
+    setShowMenu(!showMenu);
+  }
+
   const {userId, isLoaded} = useAuth();
 
   const navigate = useNavigate();
@@ -18,7 +24,9 @@ export default function DashboardLayout() {
   if(!isLoaded) return "Loading..."
   return (
     <div className='dashboardLayout'>
-      <div className='menu'><ChatList /></div>
+      <div onClick={handleMenu}><i className="fa-solid fa-bars mobileMenuBars"></i></div>
+      {showMenu && <div className='mobileMenu'><ChatTitle /></div>}
+      <div className='menu'><ChatTitle /></div>
       <div className='content'>
         <Outlet />
       </div>

@@ -1,14 +1,14 @@
 import React, {useRef, useEffect, useState} from 'react'
 import { IKImage } from 'imagekitio-react';
-import Upload from '../upload/Upload';
-import model from '../../lib/gemini';
+import ImageUpload from '../imageUpload/ImageUpload';
+import model from '../../externals/gemini';
 import Markdown from "react-markdown";
-import './newPrompt.css'
+import './prompt.css'
 import {useAuth} from "@clerk/clerk-react";
 import {useMutation, useQueryClient} from '@tanstack/react-query';
 
 
-export default function NewPrompt({data}) {
+export default function Prompt({data}) {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -140,23 +140,25 @@ useEffect(()=>{
         {img.isLoading && <div>Loading...</div>}
         {img.dbData?.filePath &&
           //showing the image on page with IKImage from imagekit
+          //IKImage resolves into <img src=""></img> according to imagekit docs
           <IKImage
             // getting the file path ie clerk url to show the image on page 
             //img.dbData is gotten from onSuccess in Upload.jsx file
             urlEndpoint={import.meta.env.VITE_IMAGE_KIT_ENDPOINT}
             path={img.dbData?.filePath}
-            width="300"
-            transformation={[{width:300}]}
+            height="100"
+            width="100"
+            transformation={[{height:100, width:100}]}
           />
         }
         <div className="endChat" ref={endRef}></div>
         <form action="" className="newForm" onSubmit={handleSubmit} ref={formRef}>
               {/* using Upload.jsx to handle upload, the label to click is in upload.jsx*/}
-             <Upload setImg={setImg}/>
+             <ImageUpload setImg={setImg}/>
              <input id="file" type="file" multiple={false} hidden/>
-             <input type="text" name="text" placeholder='Ask anything...'/>
+             <input type="text" name="text" placeholder='How can i help?'/>
              <button>
-                <img src="/arrow.png" alt="" /> 
+             <i className="fa-solid fa-arrow-right newPromtArrow"></i> 
              </button>
         </form>
     </>

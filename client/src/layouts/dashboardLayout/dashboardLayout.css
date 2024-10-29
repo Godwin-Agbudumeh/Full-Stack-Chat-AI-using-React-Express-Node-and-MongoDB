@@ -1,15 +1,59 @@
 .dashboardLayout{
-    display: flex;
-    gap: 50px;
     padding-top: 20px;
     height: 100%;
+    position: relative;
+
+    .mobileMenuBars{
+        display: flex;
+        margin-bottom: 10px;
+    }
+
+    .mobileMenu{
+        position: absolute;
+        top: 20;
+        bottom: 10;
+        height: 90%;
+        width:  80%;
+        padding: 10px;
+        background-color:  rgb(74, 74, 74);
+        display: flex;
+        z-index: 1;
+        border: 1px solid rgb(174, 173, 173);
+    }
 
     .menu{
-        flex: 1;
+        display: none;
     }
 
     .content{
-        flex: 4;
         background-color: #606065;
+        height: 100%;;
+    }
+}
+
+/* media queries */
+@media screen and (min-width:900px){
+    .dashboardLayout{
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+
+        .mobileMenuBars{
+            display: none;
+        }
+
+        .mobileMenu{
+            display: none;
+        }
+    
+        .menu{
+            display: flex;
+            flex: 1;
+        }
+
+        .content{
+            flex: 4;
+            background-color: #606065;
+        }
     }
 }
