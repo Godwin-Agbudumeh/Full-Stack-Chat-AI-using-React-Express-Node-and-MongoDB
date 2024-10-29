@@ -32,6 +32,7 @@ export default function ChatTitle() {
         //but backend api, not detecting credentials,
         //so i used post to send userId, to fix
         method: "POST",
+        mode: "cors",
         credentials:"include",
         headers:{
           "Content-Type":"application/json"
