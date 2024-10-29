@@ -4,13 +4,15 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import chatRoutes from "./routes/chats.js";
 import userChatRoutes from "./routes/userChats.js";
-import UserChats from './models/userChats.js';
+//import UserChats from './models/userChats.js';
 
 const port = process.env.PORT || 3000;
 const app = express();
 
 app.use(cors({
     origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
     // to use credentials sent from client on fetch
     credentials: true,
 })) 
@@ -50,20 +52,20 @@ app.get("/", (req, res)=>{
     return res.send("server is running, thanks");
 })
 
-app.post("/test", async(req, res)=>{
-    const {userId} = req.body;
+// app.post("/test", async(req, res)=>{
+//     const {userId} = req.body;
 
-    try{
-        const userChats = await UserChats.find({userId:userId});
+//     try{
+//         const userChats = await UserChats.find({userId:userId});
     
-        //we are sending the userId, _ids and titles of all chats of a particular user
-        //it is used by the chatList.jsx to update lists
-        res.status(200).send(userChats[0].chats);
-    }catch(err){
-        console.log(err);
-        res.status(500).send("Error fetching userchats")
-    }
-})
+//         //we are sending the userId, _ids and titles of all chats of a particular user
+//         //it is used by the chatList.jsx to update lists
+//         res.status(200).send(userChats[0].chats);
+//     }catch(err){
+//         console.log(err);
+//         res.status(500).send("Error fetching userchats")
+//     }
+// })
 
 app.listen(port, ()=>{
     connect()
