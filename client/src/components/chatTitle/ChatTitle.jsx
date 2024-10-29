@@ -16,7 +16,7 @@ export default function ChatTitle() {
         //so i used post to send userId, to fix
         method: "POST",
         mode: 'no-cors', 
-        credentials:"include",
+        //credentials:"include",
         headers:{
           "Content-Type":"application/json"
         },

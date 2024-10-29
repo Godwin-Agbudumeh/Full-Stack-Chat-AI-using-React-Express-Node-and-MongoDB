@@ -8,11 +8,13 @@ import userChatRoutes from "./routes/userChats.js";
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(cors({
-    origin: true,
-    // to use credentials sent from client on fetch
-    credentials: true,
-})) 
+// app.use(cors({
+//     origin: true,
+//     // to use credentials sent from client on fetch
+//     credentials: true,
+// })) 
+
+app.use(cors());
 
 app.use(express.json())
 
