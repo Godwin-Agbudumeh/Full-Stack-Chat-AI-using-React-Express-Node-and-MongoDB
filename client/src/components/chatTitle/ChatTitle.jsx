@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './chatTitle.css';
 import {useAuth} from "@clerk/clerk-react";
@@ -6,6 +6,15 @@ import {useQuery} from '@tanstack/react-query';
  
 export default function ChatTitle() {
   const { userId } = useAuth();
+
+  // useEffect(()=>{
+  //   const test = async ()=>{
+  //     fetch(`${import.meta.env.VITE_API_URL}/test`, {
+  //       method: "POST",
+  //       body: JSON.stringify({userId})
+  //     }).then((res)=>{res.json()})
+  //   }
+  // },[])
 
   const { isPending, error, data } = useQuery({
     queryKey: ['userChats'],
@@ -17,12 +26,12 @@ export default function ChatTitle() {
         method: "POST",
         mode: 'no-cors', 
         //credentials:"include",
-        headers:{
-          "Content-Type":"application/json"
-        },
+        // headers:{
+        //   "Content-Type":"application/json"
+        // },
         body: JSON.stringify({userId})
       }).then((res) =>
-        res.json(),
+        res.json()
       ),
   });
 

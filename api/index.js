@@ -4,6 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import chatRoutes from "./routes/chats.js";
 import userChatRoutes from "./routes/userChats.js";
+//import UserChats from './models/userChats.js';
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -48,6 +49,21 @@ app.get("/api/imageupload", (req, res)=>{
 app.get("/", (req, res)=>{
     return res.send("server is running, thanks");
 })
+
+// app.post("/test", async()=>{
+//     const {userId} = req.body;
+
+//     try{
+//         const userChats = await UserChats.find({userId:userId});
+    
+//         //we are sending the userId, _ids and titles of all chats of a particular user
+//         //it is used by the chatList.jsx to update lists
+//         res.status(200).send(userChats[0].chats);
+//     }catch(err){
+//         console.log(err);
+//         res.status(500).send("Error fetching userchats")
+//     }
+// })
 
 app.listen(port, ()=>{
     connect()
