@@ -6,15 +6,23 @@ import {useQuery} from '@tanstack/react-query';
  
 export default function ChatTitle() {
   const { userId } = useAuth();
+  console.log(userId)
 
-  // useEffect(()=>{
-  //   const test = async ()=>{
-  //     fetch(`${import.meta.env.VITE_API_URL}/test`, {
-  //       method: "POST",
-  //       body: JSON.stringify({userId})
-  //     }).then((res)=>{res.json()})
-  //   }
-  // },[])
+  useEffect(()=>{
+    try{
+      const test = async ()=>{
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/test`, {
+          method: "POST",
+          body: JSON.stringify({userId})
+        });
+  
+        console.log(res)
+      }
+      test()
+    }catch(err){
+      console.log(err)
+    }
+  },[])
 
   const { isPending, error, data } = useQuery({
     queryKey: ['userChats'],
@@ -24,11 +32,10 @@ export default function ChatTitle() {
         //but backend api, not detecting credentials,
         //so i used post to send userId, to fix
         method: "POST",
-        mode: 'no-cors', 
-        //credentials:"include",
-        // headers:{
-        //   "Content-Type":"application/json"
-        // },
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
         body: JSON.stringify({userId})
       }).then((res) =>
         res.json()
