@@ -36,7 +36,7 @@ export default function ChatTitle() {
         {isPending 
         ? "Loading..." 
         : error 
-        ? "Something went wrong!" 
+        ? "Something went wrong!" + error
         : data?.map((chat)=>{return(
           <Link to={`/dashboard/chats/${chat._id}`} key={chat._id}>{chat.title}</Link>
         )})}
