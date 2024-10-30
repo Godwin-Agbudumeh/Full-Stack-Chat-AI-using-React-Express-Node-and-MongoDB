@@ -17,8 +17,6 @@ const connect = async ()=>{
     }  
 }
 
-connect();
-
 app.use(cors({
     origin: true,
     // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
@@ -50,6 +48,7 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", (req, res)=>{
+    connect();
     return res.send("server is running, thanks");
 })
 
