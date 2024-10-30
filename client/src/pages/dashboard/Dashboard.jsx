@@ -42,15 +42,6 @@ const mutation = useMutation({
 
     //calls the useMutation hook to start operation
     mutation.mutate(text);
-
-    // await fetch("http://localhost:3000/api/chats", {
-    //   method: "POST",
-    //   credentials: "include", 
-    //   headers:{
-    //     "Content-Type":"application/json"
-    //   },
-    //   body:JSON.stringify({userId, text})
-    // })
   }
 
   return (
@@ -63,7 +54,6 @@ const mutation = useMutation({
         <form>
           <input type="text" name="text" placeholder='How can i help?'/>
           <button>
-            {/* <img src="/submit.png" alt="" /> */}
             <i className="fa-solid fa-arrow-right dashboardArrow"></i>
           </button>
         </form>

@@ -1,10 +1,17 @@
-import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useNavigate} from 'react-router-dom';
 import './chatTitle.css';
 import {useAuth} from "@clerk/clerk-react";
 import {useQuery} from '@tanstack/react-query';
  
 export default function ChatTitle() {
+  // const navigate = useNavigate()
+
+  // const ourMenu = ()=>{
+  //   setShowMenu(false);
+  //   navigate('/dashboard')
+  // }
+
   const { userId } = useAuth();
 
   const { isPending, error, data } = useQuery({
@@ -29,6 +36,7 @@ export default function ChatTitle() {
     <div className='chatTitle'>
       <span className='title'>DASHBOARD</span>
       <Link to="/dashboard">Create a new Chat</Link>
+      {/* <h3 onClick={ourMenu}>Create a new Chat</h3> */}
       <hr/>
       <span className='title'>RECENT CHATS</span>
       <div className="list">

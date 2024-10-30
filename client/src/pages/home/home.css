@@ -146,12 +146,33 @@
         }
     }
 
-    @keyframes test{
+    @keyframes imgContAnimation{
         0%{
             transform: translateY(-70px);
         }
         100%{
             transform: translateY(100px);
+        }
+    }
+}
+
+@media screen and (max-width:300px){
+    .home{
+
+        .left{
+
+            h1{
+                font-size: 25px;
+            }
+            h2{
+                font-size: 20px;
+                min-width: 70%;
+            }
+            h4{
+                font-weight: 400;
+                font-size: 15px;
+                min-width: 70%;
+            }
         }
     }
 }

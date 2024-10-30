@@ -28,3 +28,16 @@
     overflow: hidden;
  } 
 }
+
+/* media queries */
+@media screen and (min-width:900px){
+    .rootLayout{
+        padding: 16px 64px;
+    }
+}
+
+@media screen and (max-width:500px){
+    .rootLayout{
+        padding: 10px 10px;
+    }
+}

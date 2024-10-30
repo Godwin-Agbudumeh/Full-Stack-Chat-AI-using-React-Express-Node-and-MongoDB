@@ -15,6 +15,8 @@ export default function DashboardLayout() {
 
   const navigate = useNavigate();
 
+  console.log(showMenu)
+
   useEffect(()=>{
     if(isLoaded && !userId){
       navigate("/sign-in")

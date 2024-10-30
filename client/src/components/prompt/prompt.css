@@ -62,3 +62,27 @@
         }
     }
 }
+
+@media screen and (max-width:500px){
+    .newForm{
+        width: 97%;
+        margin: 0, 1px;
+        margin-bottom: 0px;
+        justify-content: space-around;
+        gap: 1px;
+
+        input{
+            width: 70%;
+            padding: 20px;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: #ececec;
+        }
+
+        button{
+            margin-right: 1px;
+        }
+    }
+}
+
