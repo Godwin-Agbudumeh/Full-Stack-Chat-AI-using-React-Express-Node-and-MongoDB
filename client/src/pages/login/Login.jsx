@@ -5,7 +5,8 @@ import {SignIn} from '@clerk/clerk-react';
 export default function Login() {
   return (
     <div className='login'>
-        <SignIn path="/sign-in" signUpUrl='/sign-up' forceRedirectUrl="/dashboard"/>
+        {/* <SignIn path="/sign-in" signUpUrl='/sign-up' forceRedirectUrl="/dashboard"/> */}
+        <SignIn />
     </div>
   )
 }
