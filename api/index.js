@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 const connect = async ()=>{
     try{
-        await mongoose.connect(process.env.MONGODB_URI);
+        await mongoose.connect(process.env.MONGO);
         console.log("connected to mongodb")
     }catch(err){
         console.log(err)
@@ -48,6 +48,7 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", async(req, res)=>{
+    connect()
     //return res.send("server is running, thanks");
     const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
 
@@ -64,6 +65,7 @@ app.get("/", async(req, res)=>{
 })
 
 app.get("/test", async(req, res)=>{
+    connect()
     //const {userId} = req.body;
     const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
 
@@ -80,6 +82,5 @@ app.get("/test", async(req, res)=>{
 })
 
 app.listen(port, ()=>{
-    connect()
     console.log(`our server is running on port ${port}`);
 })
