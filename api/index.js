@@ -4,7 +4,7 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import chatRoutes from "./routes/chats.js";
 import userChatRoutes from "./routes/userChats.js";
-//import UserChats from './models/userChats.js';
+import UserChats from './models/userChats.js';
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -47,24 +47,37 @@ app.get("/api/imageupload", (req, res)=>{
     res.send(result);
 })
 
-app.get("/", (req, res)=>{
-    return res.send("server is running, thanks");
+app.get("/", async(req, res)=>{
+    //return res.send("server is running, thanks");
+    const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
+
+    try{
+        const userChats = await UserChats.find({userId:userId});
+    
+        //we are sending the userId, _ids and titles of all chats of a particular user
+        //it is used by the chatList.jsx to update lists
+        res.status(200).send(userChats[0].chats);
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Error fetching userchats")
+    }
 })
 
-// app.post("/test", async(req, res)=>{
-//     const {userId} = req.body;
+app.get("/test", async(req, res)=>{
+    //const {userId} = req.body;
+    const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
 
-//     try{
-//         const userChats = await UserChats.find({userId:userId});
+    try{
+        const userChats = await UserChats.find({userId:userId});
     
-//         //we are sending the userId, _ids and titles of all chats of a particular user
-//         //it is used by the chatList.jsx to update lists
-//         res.status(200).send(userChats[0].chats);
-//     }catch(err){
-//         console.log(err);
-//         res.status(500).send("Error fetching userchats")
-//     }
-// })
+        //we are sending the userId, _ids and titles of all chats of a particular user
+        //it is used by the chatList.jsx to update lists
+        res.status(200).send(userChats[0].chats);
+    }catch(err){
+        console.log(err);
+        res.status(500).send("Error fetching userchats")
+    }
+})
 
 app.listen(port, ()=>{
     connect()
