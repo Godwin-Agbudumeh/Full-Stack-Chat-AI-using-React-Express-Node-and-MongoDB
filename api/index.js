@@ -25,6 +25,7 @@ app.use(cors({
     credentials: true,
 })) 
 
+connect()
 //app.use(cors());
 
 app.use(express.json())
@@ -48,7 +49,7 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", async(req, res)=>{
-    connect()
+    //connect()
     //return res.send("server is running, thanks");
     const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
 
@@ -65,7 +66,7 @@ app.get("/", async(req, res)=>{
 })
 
 app.get("/test", async(req, res)=>{
-    connect()
+    //connect()
     //const {userId} = req.body;
     const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
 
