@@ -49,6 +49,7 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", (req, res)=>{
+    connect()
     return res.send("server is running, thanks");
 })
 
@@ -68,6 +69,6 @@ app.get("/", (req, res)=>{
 // })
 
 app.listen(port, ()=>{
-    connect()
+    //connect()
     console.log(`our server is running on port ${port}`);
 })
