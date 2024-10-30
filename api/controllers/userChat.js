@@ -5,7 +5,6 @@ import UserChats from '../models/userChats.js';
 //so i used post to get userId from client, to fix
 export const getUserChat = async (req, res)=>{
     //const userId = req.auth.userId;
-    //const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
     const {userId} = req.body;
 
     try{

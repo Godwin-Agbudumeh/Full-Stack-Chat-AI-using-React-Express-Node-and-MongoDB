@@ -6,24 +6,6 @@ import {useQuery} from '@tanstack/react-query';
  
 export default function ChatTitle() {
   const { userId } = useAuth();
-  //const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb"
-  console.log(userId)
-
-  // useEffect(()=>{
-  //   try{
-  //     const test = async ()=>{
-  //       const res = await fetch(`${import.meta.env.VITE_API_URL}/test`, {
-  //         method: "POST",
-  //         body: JSON.stringify({userId})
-  //       });
-  
-  //       console.log(res)
-  //     }
-  //     test()
-  //   }catch(err){
-  //     console.log(err)
-  //   }
-  // },[])
 
   const { isPending, error, data } = useQuery({
     queryKey: ['userChats'],
