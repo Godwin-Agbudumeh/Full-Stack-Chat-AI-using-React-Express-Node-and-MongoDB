@@ -6,6 +6,7 @@ import {useQuery} from '@tanstack/react-query';
  
 export default function ChatTitle() {
   const { userId } = useAuth();
+  //const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb"
   console.log(userId)
 
   // useEffect(()=>{

@@ -11,8 +11,8 @@ const app = express();
 
 app.use(cors({
     origin: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
+    // allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
     // to use credentials sent from client on fetch
     credentials: true,
 })) 
@@ -69,5 +69,5 @@ app.get("/", (req, res)=>{
 
 app.listen(port, ()=>{
     connect()
-    console.log(`our server is running on port ${port}`);
+    console.log(`server is running on port ${port}`);
 })
