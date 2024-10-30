@@ -32,12 +32,12 @@ export default function ChatTitle() {
         //This is actually a get request, 
         //but backend api, not detecting credentials,
         //so i used post to send userId, to fix
-        method: "GET",
-        // credentials:"include",
-        // headers:{
-        //   "Content-Type":"application/json"
-        // },
-        // body: JSON.stringify({userId})
+        method: "POST",
+        credentials:"include",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body: JSON.stringify({userId})
       }).then((res) =>
         res.json()
       ),

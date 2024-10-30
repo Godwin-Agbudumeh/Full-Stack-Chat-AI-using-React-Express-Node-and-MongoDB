@@ -18,7 +18,7 @@ const connect = async ()=>{
 }
 
 app.use(cors({
-    origin: ['https://godwin-ai-client.devlyf.com'],
+    origin: ['https://godwin-ai-client.devlyf.com', 'http://localhost:5173'],
     // methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'HEAD', 'OPTIONS'],
     // allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept', 'x-client-key', 'x-client-token', 'x-client-secret', 'Authorization'],
     // to use credentials sent from client on fetch
