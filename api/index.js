@@ -8,6 +8,16 @@ import userChatRoutes from "./routes/userChats.js";
 
 const port = process.env.PORT || 3000;
 const app = express();
+const connect = async ()=>{
+    try{
+        await mongoose.connect(process.env.MONGO);
+        console.log("connected to mongodb")
+    }catch(err){
+        console.log(err)
+    }  
+}
+
+connect();
 
 app.use(cors({
     origin: true,
@@ -23,15 +33,6 @@ app.use(express.json())
 
 app.use("/api/chats", chatRoutes);
 app.use("/api/userchats", userChatRoutes)
-
-const connect = async ()=>{
-    try{
-        await mongoose.connect(process.env.MONGO);
-        console.log("connected to mongodb")
-    }catch(err){
-        console.log(err)
-    }  
-}
 
 //for authentication for imagekit from client 
 const imagekit = new ImageKit({
@@ -49,7 +50,6 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", (req, res)=>{
-    connect()
     return res.send("server is running, thanks");
 })
 
