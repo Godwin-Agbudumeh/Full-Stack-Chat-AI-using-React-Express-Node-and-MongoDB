@@ -4,6 +4,6 @@ import { getUserChat } from "../controllers/userChat.js";
 
 const router = express.Router();
 
-router.post("/", /*ClerkExpressRequireAuth(),*/ getUserChat)
+router.get("/", /*ClerkExpressRequireAuth(),*/ getUserChat)
 
 export default router;
