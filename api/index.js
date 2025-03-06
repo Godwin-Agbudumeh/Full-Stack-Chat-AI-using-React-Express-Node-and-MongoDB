@@ -18,7 +18,7 @@ const connect = async ()=>{
 }
 
 app.use(cors({
-    origin: ['https://godwin-ai-client.devlyf.com', 'http://localhost:5173'],
+    origin: ['https://godwin-chat-ai.vercel.app', 'http://localhost:5173'],
     credentials: true,
 })) 
 
