@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import './dashboardLayout.css'
-import {useAuth} from '@clerk/clerk-react';
+
 import ChatTitle from '../../components/chatTitle/ChatTitle';
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 export default function DashboardLayout() {
   const [showMenu, setShowMenu] = useState(false);
@@ -11,19 +13,19 @@ export default function DashboardLayout() {
     setShowMenu(!showMenu);
   }
 
-  const {userId, isLoaded} = useAuth();
+  const {currentUser} = useContext(Context);
+  const userId = currentUser?._id;
 
   const navigate = useNavigate();
 
   console.log(showMenu)
 
   useEffect(()=>{
-    if(isLoaded && !userId){
-      navigate("/sign-in")
+    if(currentUser === null){
+      navigate("/login")
     }
-  }, [isLoaded, userId, navigate]);
+  }, [currentUser]);
 
-  if(!isLoaded) return "Loading..."
   return (
     <div className='dashboardLayout'>
       <div onClick={handleMenu}><i className="fa-solid fa-bars mobileMenuBars"></i></div>

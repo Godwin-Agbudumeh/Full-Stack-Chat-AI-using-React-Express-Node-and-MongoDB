@@ -2,6 +2,7 @@ import express from 'express';
 import ImageKit from 'imagekit';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import authRoutes from "./routes/auth.js"
 import chatRoutes from "./routes/chats.js";
 import userChatRoutes from "./routes/userChats.js";
 
@@ -24,6 +25,7 @@ app.use(cors({
 connect()
 
 app.use(express.json())
+app.use("/api/auth", authRoutes);
 app.use("/api/chats", chatRoutes);
 app.use("/api/userchats", userChatRoutes)
 

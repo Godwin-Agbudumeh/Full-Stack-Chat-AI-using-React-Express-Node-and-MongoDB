@@ -4,8 +4,10 @@ import ImageUpload from '../imageUpload/ImageUpload';
 import model from '../../externals/gemini';
 import Markdown from "react-markdown";
 import './prompt.css'
-import {useAuth} from "@clerk/clerk-react";
+//import {useAuth} from "@clerk/clerk-react";
 import {useMutation, useQueryClient} from '@tanstack/react-query';
+import { useContext } from "react";
+import { Context } from "../../context/Context";
 
 
 export default function Prompt({data}) {
@@ -43,7 +45,10 @@ export default function Prompt({data}) {
     endRef.current.scrollIntoView({behavior: "smooth"});
   },[data, question, answer, img.dbData]); 
 
-const { userId } = useAuth();
+//const { userId } = useAuth();
+//const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
+const {currentUser} = useContext(Context);
+const userId = currentUser?._id;
 
 const queryClient = useQueryClient();
 

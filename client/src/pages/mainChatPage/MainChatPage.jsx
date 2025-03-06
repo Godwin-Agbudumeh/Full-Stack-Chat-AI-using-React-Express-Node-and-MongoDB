@@ -2,13 +2,18 @@ import React, {useState} from 'react'
 import './mainChatPage.css';
 import Prompt from '../../components/prompt/Prompt';
 import { useLocation } from "react-router-dom";
-import {useAuth} from "@clerk/clerk-react";
+//import {useAuth} from "@clerk/clerk-react";
 import Markdown from "react-markdown";
 import {useQuery} from '@tanstack/react-query';
 import { IKImage } from 'imagekitio-react';
+import {useContext } from "react";
+import { Context } from "../../context/Context";
 
 export default function MainChatPage() {
-  const { userId } = useAuth();
+  //const { userId } = useAuth();
+  //const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
+  const {currentUser} = useContext(Context);
+  const userId = currentUser?._id;
 
   const path =  useLocation().pathname;
  

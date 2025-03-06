@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import './chatTitle.css';
-import {useAuth} from "@clerk/clerk-react";
+//import {useAuth} from "@clerk/clerk-react";
 import {useQuery} from '@tanstack/react-query';
+import { useContext } from "react";
+import { Context } from "../../context/Context";
  
 export default function ChatTitle() {
   // const navigate = useNavigate()
@@ -12,7 +14,11 @@ export default function ChatTitle() {
   //   navigate('/dashboard')
   // }
 
-  const { userId } = useAuth();
+  //const { userId } = useAuth();
+
+  //const userId = "user_2no5Wei5fmHnEPP9vMueNFt5WBb";
+  const {currentUser} = useContext(Context);
+  const userId = currentUser?._id;
 
   const { isPending, error, data } = useQuery({
     queryKey: ['userChats'],
