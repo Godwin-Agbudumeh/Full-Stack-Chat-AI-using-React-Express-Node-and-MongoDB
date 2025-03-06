@@ -6,7 +6,7 @@ import { Context } from "../../context/Context";
 
 export default function Login() {
   const [inputs, setInputs] = useState({
-    email:"",
+    username:"",
     password:"",
   });
   

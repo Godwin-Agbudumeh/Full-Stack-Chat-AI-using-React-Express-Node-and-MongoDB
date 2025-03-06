@@ -5,8 +5,7 @@ import axios from "axios";
 
 export default function Register() {
   const [inputs, setInputs] = useState({
-    firstname:"",
-    lastname:"",
+    username:"",
     email:"",
     password:"",
   });
