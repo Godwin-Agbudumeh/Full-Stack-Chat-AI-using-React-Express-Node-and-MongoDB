@@ -17,11 +17,15 @@ const connect = async ()=>{
     }  
 }
 
+// app.use(cors({
+//     origin: ['https://godwin-chat-ai.vercel.app', 'http://localhost:5173'],
+//     credentials: true,
+// })) 
+
 app.use(cors({
-    origin: ['https://godwin-chat-ai.vercel.app', 'http://localhost:5173'],
+    origin: "*",
     credentials: true,
 })) 
-
 // app.use(cors({origin:true, credentials:true}))
 
 connect()
