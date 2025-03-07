@@ -33,7 +33,7 @@ export default function Login() {
     }catch(err){
       console.log(err)
       //error data coming from backend from res.status(404), wrong credentials, caught by catch block
-      setError(err.response.data); //data coming from backend from res.status(404)
+      setError(err.response?.data); //data coming from backend from res.status(404)
       dispatch({type: "LOGIN_FAILURE"})
     }  
   };
