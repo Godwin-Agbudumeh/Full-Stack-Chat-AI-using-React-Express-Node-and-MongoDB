@@ -2,7 +2,6 @@ import Chat from '../models/chat.js';
 import UserChats from '../models/userChats.js';
 
 export const addChat = async (req, res)=>{
-    //const userId = req.auth.userId
     const {userId, text} = req.body ;
     
     try{
@@ -79,7 +78,6 @@ export const getChat = async (req, res)=>{
 }
 
 export const updateChat = async (req, res)=>{
-    //const userId = req.auth.userId;
     const {userId, question, answer, img} = req.body;
 
     //we are trying to get the answer from the ai

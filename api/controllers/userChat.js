@@ -4,7 +4,6 @@ import UserChats from '../models/userChats.js';
 //but our backend api, not detecting credentials,
 //so i used post to get userId from client, to fix
 export const getUserChat = async (req, res)=>{
-    //const userId = req.auth.userId;
     const {userId} = req.body;
 
     try{
