@@ -51,7 +51,7 @@ app.get("/api/imageupload", (req, res)=>{
 })
 
 app.get("/", (req, res)=>{
-    res.send("server is running, thanks");
+    res.send("server is running again, thanks");
 })
 
 app.listen(port, ()=>{
