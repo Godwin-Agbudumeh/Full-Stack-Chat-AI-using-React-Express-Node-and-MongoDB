@@ -10,4 +10,4 @@ Installation: npm install
 
 To start server: npm start
 
-To visit App: https://godwin-ai-client.devlyf.com
+To visit App: https://godwin-chat-ai.vercel.app
